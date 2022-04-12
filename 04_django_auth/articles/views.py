@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_http_methods, require_POST, require_safe
 from .models import Article
 from .forms import ArticleForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 @require_safe
@@ -13,6 +14,7 @@ def index(request):
     return render(request, 'articles/index.html', context)
 
 
+@login_required
 @require_http_methods(['GET', 'POST'])
 def create(request):
     if request.method == 'POST':
@@ -37,6 +39,7 @@ def detail(request, pk):
     return render(request, 'articles/detail.html', context)
 
 
+@login_required
 @require_POST
 def delete(request, pk):
     article = get_object_or_404(Article, pk=pk)
@@ -46,6 +49,7 @@ def delete(request, pk):
     return redirect('articles:detail', article.pk)
 
 
+@login_required
 @require_http_methods(['GET', 'POST'])
 def update(request, pk):
     article = get_object_or_404(Article, pk=pk)
