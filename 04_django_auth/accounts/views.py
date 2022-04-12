@@ -42,3 +42,12 @@ def signup(request):
         'form' : form,
     }
     return render(request, 'accounts/signup.html', context)
+
+
+@require_POST
+def delete(request):
+    if request.user.is_authenticated:
+        #반드시 회원 탈퇴 후 로그아웃 함수 호출!!
+        request.user.delete()
+        auth_logout(request)
+    return redirect('articles:index')

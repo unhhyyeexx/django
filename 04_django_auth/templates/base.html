@@ -16,6 +16,10 @@
         {% csrf_token %}
         <input type="submit" value="Logout">
       </form>
+      <form action="{% url 'accounts:delete' %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="회원 탈퇴">
+      </form>
     {% else %}
       <a href="{% url 'accounts:login' %}">Login</a>
       <a href="{% url 'accounts:signup' %}">Signup</a>
