@@ -6,7 +6,7 @@
   <form action="{% url 'accounts:signup' %}" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit">
+    <input type="submit" class="btn btn-success mx-2 my-2">
   </form>
-  <a href="{% url 'articles:index' %}">back</a>
+  <a href="{% url 'articles:index' %}" class="btn btn-warning mx-2 my-1">BACK</a>
 {% endblock content %}

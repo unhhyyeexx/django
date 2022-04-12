@@ -3,7 +3,7 @@
 {% block content %}
   <h1>Articles</h1>
   {% if request.user.is_authenticated %}
-    <a href="{% url 'articles:create' %}">[CREATE]</a>
+    <a href="{% url 'articles:create' %}" class="mx-2 my-2 btn btn-primary">CREATE</a>
   {% else %}
     <a href="{% url 'accounts:login' %}">[새 글을 작성하려면 로그인 하세요.]</a>
   {% endif %}
@@ -12,7 +12,7 @@
     <p>글 번호: {{ article.pk }}</p>  
     <p>글 제목: {{ article.title }}</p>
     <p>글 내용: {{ article.content }}</p>
-    <a href="{% url 'articles:detail' article.pk %}">DETAIL</a>
+    <a href="{% url 'articles:detail' article.pk %}" class="mx-2 my-2 btn btn-info">DETAIL</a>
     <hr>
   {% endfor %}
 {% endblock content %}

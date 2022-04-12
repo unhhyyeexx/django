@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
   <h1>LOGIN</h1>
   <hr>
-  <form action="{% url '' %}" method="POST">
+  <form action="{% url 'accounts:login' %}" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit">
+    <button class="btn btn-success mx-2 my-2">Login</button>
   </form>
-  <a href="{% url 'articles:index' %}">back</a>
+  <a href="{% url 'articles:index' %}" class="btn btn-warning mx-2 my-2">back</a>
 {% endblock content %}
