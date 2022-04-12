@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>LOGIN</h1>
+  <h1>SIGN UP</h1>
   <hr>
-  <form action="{% url '' %}" method="POST">
+  <form action="{% url 'accoounts:signup' %}" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit">
