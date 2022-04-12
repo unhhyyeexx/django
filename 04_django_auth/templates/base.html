@@ -11,7 +11,7 @@
   <div class="container">
     <h3>Hello, {{ user }} </h3>
     <a href="{% url 'accounts:login' %}">Login</a>
-    <form action="{% url 'accoutns:logout' %}" method = "POST">
+    <form action="{% url 'accounts:logout' %}" method = "POST">
       {% csrf_token %}
       <input type="submit" value="Logout">
     </form>
