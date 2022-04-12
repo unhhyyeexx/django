@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect 
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 from django.views.decorators.http import require_http_methods, require_POST
+from .forms import CustomUserChangeForm
 
 # Create your views here.
 @require_http_methods(['GET', 'POST'])
@@ -51,3 +52,18 @@ def delete(request):
         request.user.delete()
         auth_logout(request)
     return redirect('articles:index')
+
+
+
+def update(request):
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance = request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('articles:index')
+    else:
+        form = CustomUserChangeForm(instance=request.user)
+    context = {
+        'form' : form,
+    }
+    return render(request, 'accounts/update.html', context)
