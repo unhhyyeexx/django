@@ -28,7 +28,7 @@ def logout(request):
         auth_logout(request)
     return redirect('articles:index')
 
-
+@require_http_methods(['GET', 'POST'])
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
