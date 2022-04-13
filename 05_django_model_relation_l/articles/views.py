@@ -71,17 +71,22 @@ def update(request, pk):
     return render(request, 'articles/update.html', context)
 
 
+@require_POST
 def comments_create(request, pk):
-    article = Article.objects.get(pk=pk)
-    comment_form = CommentForm(request.POST)
-    if comment_form.is_valid():
-        comment = comment_form.save(commit=False)
-        comment.article = article
-        comment.save()
-    return redirect('articles:detail', article.pk)
+    if request.user.is_authenticated:
+        article = get_object_or_404(Article, pk=pk)
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.article = article
+            comment.save()
+        return redirect('articles:detail', article.pk)
+    return redirect('accounts:login')
 
 
+@require_POST
 def comments_delete(request, article_pk, comment_pk):
-    comment = Comment.objects.get(pk=comment_pk)
-    comment.delete()
+    if request.user.is_authenticated:
+        comment= get_object_or_404(Comment, pk=comment_pk)
+        comment.delete()
     return redirect('articles:detail', article_pk)
