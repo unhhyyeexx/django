@@ -33,8 +33,10 @@ def create(request):
 @require_safe
 def detail(request, pk):
     article = get_object_or_404(Article, pk=pk)
+    comment_form = CommentForm()
     context = {
         'article': article,
+        'comment_form' : comment_form,
     }
     return render(request, 'articles/detail.html', context)
 
@@ -65,3 +67,10 @@ def update(request, pk):
     }
     return render(request, 'articles/update.html', context)
 
+
+def comments_create(request, pk):
+    article = Article.objects.get(pk=pk)
+    comment_form = CommentForm(request.POST)
+    if comment_form.is_valid():
+        comment_form.save()
+    return redirect('articles:detail', article.pk)
