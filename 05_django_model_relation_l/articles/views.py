@@ -34,9 +34,12 @@ def create(request):
 def detail(request, pk):
     article = get_object_or_404(Article, pk=pk)
     comment_form = CommentForm()
+    # 조회한 article의 모든 댓글을 조회(역참조)
+    comments = article.comment_set.all()
     context = {
         'article': article,
         'comment_form' : comment_form,
+        'comments' : comments,
     }
     return render(request, 'articles/detail.html', context)
 
@@ -72,5 +75,7 @@ def comments_create(request, pk):
     article = Article.objects.get(pk=pk)
     comment_form = CommentForm(request.POST)
     if comment_form.is_valid():
-        comment_form.save()
+        comment = comment_form.save(commit=False)
+        comment.article = article
+        comment.save()
     return redirect('articles:detail', article.pk)
