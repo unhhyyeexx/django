@@ -86,6 +86,7 @@ def comments_create(request, pk):
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
             comment.article = article
+            comment.user = request.user
             comment.save()
         return redirect('articles:detail', article.pk)
     return redirect('accounts:login')

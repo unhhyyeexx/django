@@ -22,7 +22,7 @@
   <ul>
     {% for comment in comments %}
       <li>
-        {{ comment.content }} 
+        {{ comment.user }} - {{ comment.content }} 
         <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method='POST' class='d-inline'>
           {% csrf_token %}
           <input type="submit" value='삭제'>
@@ -31,9 +31,14 @@
     {% endfor %}
   </ul>
   <hr>
-  <form action="{% url 'articles:comments_create' article.pk %}" method = 'POST'>
-    {% csrf_token %}
-    {{ comment_form }}
-    <input type="submit">
-  </form>
+  {% if request.user.is_authenticated %}
+    <form action="{% url 'articles:comments_create' article.pk %}" method = 'POST'>
+      {% csrf_token %}
+      {{ comment_form }}
+      <input type="submit">
+    </form>
+  {% else %}
+    <a href="{% url 'accounts:login' %}">[댓글을 작성하려면 로그인하세요.]</a>
+  {% endif %}
+
 {% endblock content %}
