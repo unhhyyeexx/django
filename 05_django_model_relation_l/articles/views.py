@@ -61,13 +61,16 @@ def delete(request, pk):
 @require_http_methods(['GET', 'POST'])
 def update(request, pk):
     article = get_object_or_404(Article, pk=pk)
-    if request.method == 'POST':
-        form = ArticleForm(request.POST, instance=article)
-        if form.is_valid():
-            article = form.save()
-            return redirect('articles:detail', article.pk)
+    if request.user == article.user:
+        if request.method == 'POST':
+            form = ArticleForm(request.POST, instance=article)
+            if form.is_valid():
+                article = form.save()
+                return redirect('articles:detail', article.pk)
+        else:
+            form = ArticleForm(instance=article)
     else:
-        form = ArticleForm(instance=article)
+        return redirect('articles:index')
     context = {
         'article': article,
         'form': form,
