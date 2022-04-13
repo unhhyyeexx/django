@@ -50,7 +50,7 @@ def detail(request, pk):
 @require_POST
 def delete(request, pk):
     article = get_object_or_404(Article, pk=pk)
-    if request.user.is_authticated:
+    if request.user.is_authenticated:
         if request.user == article.user:
             article.delete()
             return redirect('articles:index')
