@@ -9,7 +9,7 @@ from django.contrib.auth.forms import (
 )
 from django.views.decorators.http import require_http_methods, require_POST
 from django.shortcuts import render, redirect
-from .forms import CustomUserChangeForm
+from .forms import CustomUserChangeForm, CustomUserCreationForm
 
 # Create your views here.
 @require_http_methods(['GET', 'POST'])
@@ -44,13 +44,13 @@ def signup(request):
         return redirect('articles:index')
 
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
             return redirect('articles:index')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     context = {
         'form': form,
     }
