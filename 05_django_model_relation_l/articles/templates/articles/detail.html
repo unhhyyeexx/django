@@ -23,10 +23,12 @@
     {% for comment in comments %}
       <li>
         {{ comment.user }} - {{ comment.content }} 
-        <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method='POST' class='d-inline'>
-          {% csrf_token %}
-          <input type="submit" value='삭제'>
-        </form>
+        {% if request.user == comment.user %}
+          <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method='POST' class='d-inline'>
+            {% csrf_token %}
+            <input type="submit" value='삭제'>
+          </form>
+        {% endif %}
       </li>
     {% endfor %}
   </ul>

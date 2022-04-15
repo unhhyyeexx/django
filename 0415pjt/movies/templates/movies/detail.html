@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+
+<h1>DETAIL</h1>
+<hr>
+
+<h4>{{ movie.title }}</h4>
+<br>
+<p>{{ movie.description }} </p>
+<div class="d-flex justify-content-between">
+  <div class="d-flex">
+  <a href='{% url 'movies:update' movie.pk %}' class="btn btn-success mx-2 my-2">UPDATE</a>
+  <form action='{% url 'movies:delete' movie.pk %}' method="POST">
+    {% csrf_token %}
+    <input type="submit" value="DELETE" class="btn btn-primary mx-2 my-2">
+  </form>
+</div>
+<a href='{% url 'movies:index' %}' class="btn btn-secondary mx-2 my-2">BACK</a>
+</div>
+<hr>
+
+<h6>댓글 목록</h6>
+
+  <ul>
+    {% for comment in comments %}
+    <div class="d-flex justify-content-between">
+      <li>{{ comment }}</li>
+      {% if request.user == comment.user %}
+          <form action="{% url 'movies:comments_delete' movie.pk comment.pk %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="DELETE">
+          </form>
+        {% endif %}
+      </li>
+    </div>
+    {% endfor %}
+  </ul>
+  <hr>
+
+
+  {% if request.user.is_authenticated %}
+    <form action="{% url 'movies:comments_create' movie.pk %}" method="POST" class="d-inline">
+      {% csrf_token %}
+      {% bootstrap_form comment_form %}
+      <input type="submit" >
+    </form>
+  {% else %}
+    <a href="{% url 'accounts:login' %}" ></a>
+  {% endif %}
+
+  {% endblock content %}

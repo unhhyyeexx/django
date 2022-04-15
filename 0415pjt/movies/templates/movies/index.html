@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center">
+  <h1>INDEX</h1>
+
+  <a href="{% url 'movies:create' %}" class="btn btn-primary">CREATE</a>
+  </div>
+  <hr>
+  <hr>
+  {% for movie in movies %}
+    <a href={% url 'movies:detail' movie.pk %}>
+      <h3> {{ movie.title }} </h3>
+    </a>
+    <p>{{ movie.description }} </p>
+    <hr>
+
+  {% endfor %}
+
+{% endblock content %}
+
