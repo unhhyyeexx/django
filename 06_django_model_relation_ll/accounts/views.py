@@ -7,7 +7,8 @@ from django.contrib.auth.forms import (
     PasswordChangeForm,
 )
 from django.views.decorators.http import require_http_methods, require_POST
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import get_user_model
 from .forms import CustomUserChangeForm, CustomUserCreationForm
 
 # Create your views here.
@@ -96,3 +97,13 @@ def change_password(request):
         'form': form,
     }
     return render(request, 'accounts/change_password.html', context)
+
+
+
+def profile(request, username):
+    User = get_user_model()
+    person = get_object_or_404(User, username=username)
+    context = {
+        'person': person,
+    }
+    return render(request, 'accounts/profile.html', context)

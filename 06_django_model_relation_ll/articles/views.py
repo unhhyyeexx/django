@@ -97,3 +97,12 @@ def comment_delete(request, article_pk ,comment_pk):
         if request.user == comment.user:
             comment.delete()
     return redirect('articles:detail', article_pk)
+
+
+def likes(request, article_pk):
+    article = get_object_or_404(Article, pk=pk)
+    if request.user in article.like_users.all():
+        article.like_users.remove(request.user)
+    else:
+        article.like_users.add(request.user)
+    return redirect('articles:index')
