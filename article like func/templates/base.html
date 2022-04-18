@@ -1,3 +1,5 @@
+{% load bootstrap5 %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,22 +13,27 @@
 <body>
   <div class="container">
     {% if request.user.is_authenticated %}
-      <h3>Hello, {{ user }}</h3>
-      <form action="{% url 'accounts:logout' %}" method="POST">
-        {% csrf_token %}
-        <input type="submit" value="Logout">
-      </form>
-      <a href="{% url 'accounts:update' %}">회원정보수정</a>
-      <form action="{% url 'accounts:delete' %}" method="POST">
-        {% csrf_token %}
-        <input type="submit" value="회원탈퇴">
-      </form>
+      <div class="d-flex justify-content-between align-items-center my-2">
+        <h1>Hello, {{ user }}</h1>
+        <div class='d-flex justify-content-between align-items-center'>
+          <form action="{% url 'accounts:logout' %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-warning" value = "LOGOUT">
+          </form>
+          <a href="{% url 'accounts:update' %}" class="btn btn-info mx-2 my-2">MODIFY</a>
+          <form action="{% url 'accounts:delete' %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-dark" value="WITHDRAWAL">
+          </form>
+        </div>
+      </div>
+      <hr><hr>
     {% else %}
-      <a href="{% url 'accounts:login' %}">Login</a>
-      <a href="{% url 'accounts:signup' %}">Signup</a>
-    {% endif %}
-
     <hr>
+    <a href="{% url 'accounts:login' %}" class="btn btn-primary my-2 mx-2">LOGIN</a>
+    <a href="{% url 'accounts:signup' %}" class="btn btn-success my-2 mx-2">SIGN UP</a>
+    <hr>
+    {% endif %}
 
     {% block content %}
     {% endblock content %}
