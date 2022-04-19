@@ -20,8 +20,8 @@
                 Unfollow {{ person.username }} ?
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
-                <button type="button" class="btn btn-primary">Unfollow</button>
+                <button type="btn" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
+                <button type="btn" class="btn btn-primary">Unfollow</button>
               </div>
             </div>
           </div>
@@ -44,7 +44,7 @@
       <div style="display:inline;" class="text-center mx-4">{{ person.article_set.all|length }}<br>
         Posts
       </div>
-      <div style="display:inline;" class="text-center mx-2">{{ follower|length }} <br>
+      <div style="display:inline;" class="text-center mx-2">{{ followers|length }} <br>
         Followers
       </div>
       <div style="display:inline" class="text-center mx-2">{{ followings|length }} <br>
@@ -75,7 +75,7 @@
                   <button class="btn" sytle="background-color: transparent;">
                     <i class="fa-solid fa-heart" style="color:red;"></i>
                   </button>
-                  <p class="my-auto">{{ article.like_users.all | length }} likes</p>
+                  <p class="my-auto text-black">{{ article.like_users.all | length }} likes</p>
                 </div>
       
               {% else %}
@@ -84,7 +84,7 @@
                   <i class="fa-regular fa-heart" ></i>
                 </button>
                 {% if article.like_users.all %}
-                  <p class="my-auto">{{ article.like_users.all | length }} likes</p>  
+                  <p class="my-auto text-black" >{{ article.like_users.all | length }} likes</p>  
                 {% endif %}
               </div>
               {% endif %} 

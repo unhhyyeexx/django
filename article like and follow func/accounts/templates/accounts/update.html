@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
+{% load bootstrap5 %}
 
 {% block content %}
-  <h1>회원정보수정</h1>
+<div class=container>
+  <h1>회원정보 수정</h1>
   <hr>
-  <form action="{% url 'accounts:update' %}" method="POST">
+  <form action="" method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit">
+    {% bootstrap_form form %}
+    <div class="d-flex justify-content-between">
+    <input type="submit" class="btn btn-primary">
   </form>
   <a href="javascript:history.back();" class="btn btn-secondary">BACK</a>
+  </div>
+</div>
 {% endblock content %}
