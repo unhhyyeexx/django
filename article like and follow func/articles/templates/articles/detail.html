@@ -3,8 +3,7 @@
 
 {% block content %}
 <div class="container">
-  <h1>DETAIL</h1>
-  <h3>{{ article.pk }}번째 글</h3>
+  <h2 class="mt-2">{{ article.pk }}번째 글</h2>
   <hr>
   <p>제목 : {{ article.title }}</p>
   <p>내용 : {{ article.content }}</p>
@@ -12,14 +11,20 @@
   <p>수정 시각 : {{ article.updated_at }}</p>
   <hr>
   {% if request.user == article.user %}
-    <a href="{% url 'articles:update' article.pk %}">수정</a>
-    <form action="{% url 'articles:delete' article.pk %}" method="POST">
+  <div class="d-flex justify-content-between">
+    <div style="display:inline">
+    <a href="{% url 'articles:update' article.pk %}" class="btn btn-warning">수정</a>
+    <form action="{% url 'articles:delete' article.pk %}" method="POST" style="display:inline">
       {% csrf_token %}
-      <input type="submit" value="삭제">
+      <input type="submit" class="btn btn-danger mx-2" value="삭제">
     </form>
+    </div>
   {% endif %}
   <a href="{% url 'articles:index' %}" class="btn btn-secondary">BACK</a>
-  <hr>
+  </div>
+  
+  <div class="container">
+    <hr>
   <h4>댓글 목록</h4>
   <ul>
     {% for comment in comments %}
@@ -44,5 +49,6 @@
   {% else %}
     <a href="{% url 'accounts:login' %}">[댓글을 작성하려면 로그인하세요.]</a>
   {% endif %}
+</div>
 </div>
 {% endblock content %}

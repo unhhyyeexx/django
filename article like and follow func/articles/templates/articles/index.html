@@ -24,7 +24,7 @@
           {% csrf_token %}
           {% if user in article.like_users.all %}
             <div class="d-flex justify-content-start align-items-center">
-              <button class="btn" sytle="background-color: transparent; ">
+              <button class="btn" sytle="background-color: transparent;">
                 <i class="fa-solid fa-heart" style="color:red;"></i>
                 <input type="hidden" name="next" value="{{ next }}">
               </button>
