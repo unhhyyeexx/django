@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="container">
-  <h2 class="mt-2">{{ article.pk }}번째 글</h2>
+  <a href="{% url 'accounts:profile' user.username %}" class="text-decoration-none"><h2 class="mt-2 text-muted ">{{ article.pk }}번째 글</h2></a>
   <hr>
   <p>제목 : {{ article.title }}</p>
   <p>내용 : {{ article.content }}</p>
@@ -20,7 +20,7 @@
     </form>
     </div>
   {% endif %}
-  <a href="{% url 'articles:index' %}" class="btn btn-secondary">BACK</a>
+  <a href="javascript:history.back();" class="btn btn-secondary">BACK</a>
   </div>
   
   <div class="container">
@@ -41,10 +41,10 @@
   </ul>
   <hr>
   {% if request.user.is_authenticated %}
-    <form action="{% url 'articles:comment_create' article.pk %}" method="POST">
+    <form action="{% url 'articles:comment_create' article.pk %}" method="POST" sytle="display:inline">
       {% csrf_token %}
       {% bootstrap_form comment_form %}
-      <input type="submit" class="btn btn-primary">
+      <input type="submit" class="btn btn-primary" sytle="display:inline">
     </form>
   {% else %}
     <a href="{% url 'accounts:login' %}">[댓글을 작성하려면 로그인하세요.]</a>

@@ -8,5 +8,5 @@
     {{ form.as_p }}
     <input type="submit">
   </form>
-  <a href="{% url 'articles:detail' article.pk %}">back</a>
+  <a href="javascript:history.back();" class="btn btn-secondary">BACK</a>
 {% endblock content %}

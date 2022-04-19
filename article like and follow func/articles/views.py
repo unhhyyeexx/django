@@ -107,5 +107,7 @@ def likes(request, article_pk):
                 article.like_users.remove(request.user)
         else:
             article.like_users.add(request.user)
+        if request.GET.get('next'):
+            return redirect(request.GET.get('next'))
         return redirect('articles:index')
     return redirect('accounts:login')
