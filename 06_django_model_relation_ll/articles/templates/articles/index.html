@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Articles</h1>
+  <h1>ARTICLES</h1>
   {% if request.user.is_authenticated %}
-    <a href="{% url 'articles:create' %}">CREATE</a>
+    <a href="{% url 'articles:create' %}" class="btn btn-primary">CREATE</a>
   {% else %}
     <a href="{% url 'accounts:login' %}">[새 글을 작성하려면 로그인 하세요]</a>
   {% endif %}
@@ -22,7 +22,7 @@
         <input type="submit" value="like">
         {% endif %} 
       </form>
-    </div>
+      <span>{{ articles:like_users.all | length }}명이 이 글을 좋아합니다. </span>
 
     <a href="{% url 'articles:detail' article.pk %}">DETAIL</a>
     <hr>
